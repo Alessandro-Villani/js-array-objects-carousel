@@ -58,8 +58,14 @@ main{
     position: relative;
 }
 
+.thumbnails{
+    height: 100%;
+    width: 100%;
+}
+
 .thumbnail{
     height: 20%;
+    cursor: pointer;
 }
 
 .arrow{
@@ -73,6 +79,7 @@ main{
     text-align: center;
     line-height: 20px;
     color: black;
+    z-index: 1;
 }
 
 .arrow.up{

@@ -23,7 +23,7 @@ Aggiungere bottoni di start/stop  del meccanismo di autoplay.
 
 //get target elements
 const targetImgContainer = document.getElementById('carousel-img-container');
-const targetThumbnailContainer = document.getElementById('carousel-thumbnail-container');
+const targetThumbnailContainer = document.querySelector('.thumbnails');
 const arrowUp = document.querySelector('.arrow.up');
 console.log(arrowUp);
 const arrowDown = document.querySelector('.arrow.down');
@@ -91,8 +91,78 @@ const addThumbnails = () => {
 
 }
 
+//Change pics function
+const changePic = (target) => {
+    //add display none to current image
+    cards[currentActiveImg].classList.add('d-none');
+    //remove selected from current image
+    thumbnails[currentActiveImg].classList.remove('selected');
+    console.log(thumbnails[currentActiveImg]);
+
+    switch (target){
+    case 'next': {
+    //index increment
+    currentActiveImg++
+    if(currentActiveImg >= cards.length) currentActiveImg = 0;
+    break
+    }
+    case 'previous' : {
+    //index decrement
+    currentActiveImg--
+    if(currentActiveImg < 0) currentActiveImg = cards.length - 1;
+    break
+    }
+    default: {
+    //image index
+    currentActiveImg = target;
+    }
+    }
+    //remove display none from next image
+    cards[currentActiveImg].classList.remove('d-none');
+    //add selected to next image
+    thumbnails[currentActiveImg].classList.add('selected');
+    console.log(thumbnails[currentActiveImg]);
+    
+}
+
 
 //! START PROGRAM
 
 targetImgContainer.innerHTML = addPicCards();
 targetThumbnailContainer.innerHTML += addThumbnails();
+
+//get all created cards and thumbnails
+const cards = document.querySelectorAll('.img-card');
+console.log(cards);
+const thumbnails = document.querySelectorAll('.thumbnail');
+console.log(thumbnails);
+
+//set index of currently active image
+let currentActiveImg = 0;
+
+console.log(arrowDown);
+//add listener to button 
+arrowDown.addEventListener('click', () => {
+
+changePic('next');
+
+});
+
+arrowUp.addEventListener('click', () => {
+
+    changePic('previous');
+
+});
+
+
+thumbnails.forEach((thumbnail, i) => {
+    thumbnail.addEventListener('click', () => {
+
+        changePic(i);
+
+    })
+});
+
+const autoPlay = setInterval(() => {
+    changePic('next');
+}, 3000);
