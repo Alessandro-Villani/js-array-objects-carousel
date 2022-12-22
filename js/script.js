@@ -20,3 +20,79 @@ BONUS 3:
 Aggiungere bottoni di start/stop  del meccanismo di autoplay.
 
 ---------------------------------------------------------------*/
+
+//get target elements
+const targetImgContainer = document.getElementById('carousel-img-container');
+const targetThumbnailContainer = document.getElementById('carousel-thumbnail-container');
+const arrowUp = document.querySelector('.arrow.up');
+console.log(arrowUp);
+const arrowDown = document.querySelector('.arrow.down');
+console.log(arrowDown);
+
+//# FUNCTIONS
+
+//Function to create pic cards
+const createPicCard = (array, i) => {
+    const displayClass = !i ? '' : ' d-none';
+
+    const card = `
+    <div class="img-card${displayClass}">
+        <img src="${array.image}" alt="${array.title}">
+        <div class="caption">
+            <h4>${array.title}</h4>
+            <p class="mb-0">${array.text}</p>
+        </div>
+    </div>`
+    console.log(card);
+    return card;
+
+}
+
+
+//Function to create thumbnail
+const createThumbnail = (array, i) => {
+    const displayClass = !i ? ' selected' : ''
+    const thumbnail = `	
+    <div class="thumbnail${displayClass}">
+        <img src="${array.image}" alt="${array.title}">
+    </div>`
+    return thumbnail;
+}
+
+//Function to build pic cards
+
+const addPicCards = () => {
+
+    let cards = ''
+
+    data.forEach((data, i) => {
+
+       cards += createPicCard(data, i);  
+
+    });
+    
+     return cards
+}
+
+//Function to build thumbnails cards
+
+const addThumbnails = () => {
+    let thumbnails = ''
+
+    data.forEach((data, i) => {
+
+        thumbnails += createThumbnail(data, i);  
+ 
+     });
+
+     console.log(thumbnails);
+
+     return thumbnails;
+
+}
+
+
+//! START PROGRAM
+
+targetImgContainer.innerHTML = addPicCards();
+targetThumbnailContainer.innerHTML += addThumbnails();
